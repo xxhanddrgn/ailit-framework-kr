@@ -1,0 +1,24 @@
+/* ailit-framework-kr.html 의 :root 를 그대로 승계한다. 값을 바꾸지 말 것. */
+:root{
+  --ink:#0B1B33;
+  --ink-2:#3A4A66;
+  --ink-3:#6C7A94;
+  --paper:#F3F5FA;
+  --paper-2:#FFFFFF;
+  --rule:#D6DDE9;
+  --engage:#12428E;
+  --create:#6E9410;
+  --create-fill:#C3E06B;
+  --manage:#D8431F;
+  --shape:#5C74B8;
+  --focus:#12428E;
+  --serif:'Noto Serif KR', serif;
+  --sans:'Pretendard Variable', Pretendard, -apple-system, sans-serif;
+  --mono:'IBM Plex Mono', monospace;
+
+  /* 3단 셸 치수 */
+  --topbar-h:56px;
+  --rail-w:200px;
+  --toc-w:240px;
+  --doc-max:1440px;
+}

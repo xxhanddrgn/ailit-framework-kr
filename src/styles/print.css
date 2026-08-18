@@ -1,0 +1,27 @@
+@media print{
+  .topbar, .toc-wrap, .rail, .search-overlay, .lightbox, .skip{display:none !important}
+
+  body{background:#fff; font-size:11pt; line-height:1.6}
+  .shell{display:block; max-width:none; padding:0}
+  .doc{padding:0}
+  .narrow{max-width:none}
+  .doc > section, .doc > header{padding:18pt 0; border-top:1px solid #ccc; break-inside:auto}
+
+  /* 역량 3단계를 세로로 펼친다 */
+  .levels{display:block !important}
+  .lvl{display:block !important; border-right:none; border-top:1px solid #ddd; padding:10pt 0}
+  .lvl-tabs{display:none !important}
+  .comp{break-inside:avoid; border:1px solid #ccc}
+
+  .reveal{opacity:1 !important; transform:none !important}
+  figure.fig button.fig-btn{border:none; padding:0}
+  figure.fig img{max-width:400px}
+  .domain-hd{color:#000; background:#fff !important; border:1px solid #999; grid-template-columns:1fr}
+  .domain-hd h2, .domain-hd p, .domain-hd .tagline{color:#000}
+  .domain-hd img{display:none}
+  footer{background:#fff; color:#000; border-top:2px solid #000}
+  footer h4, footer p{color:#000}
+  .license{background:#fff; border-color:#999}
+
+  a[href^="http"]::after{content:" (" attr(href) ")"; font-size:9pt; color:#555}
+}

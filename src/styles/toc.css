@@ -1,0 +1,92 @@
+/* ── 우측 목차 ─────────────────────────────────────────────
+   1단은 언제나 보이고, 현재 읽는 절의 2단만 펼쳐진다.
+   단 '지식·기능·태도'는 프레임워크의 뼈대라 상시 펼침 — 자동 접힘 대상이 아니다.
+   ──────────────────────────────────────────────────────── */
+
+.toc{
+  flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain;
+  font-size:13px; padding-right:6px;
+}
+/* 접힌 상태에서 스크롤바가 뜨지 않도록 */
+.toc{scrollbar-width:thin; scrollbar-color:var(--rule) transparent}
+.toc::-webkit-scrollbar{width:6px}
+.toc::-webkit-scrollbar-thumb{background:var(--rule); border-radius:3px}
+.toc::-webkit-scrollbar-track{background:transparent}
+
+.toc-hd{
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--ink-3);
+  margin:0 0 12px; padding-left:12px;
+}
+
+.toc-l1{list-style:none; margin:0; padding:0}
+
+/* 1단 항목 — 왼쪽 4px 세로 바가 현재 위치를 알린다 */
+.toc-i1 > .toc-a1{
+  display:flex; align-items:center; gap:8px; width:100%;
+  font-family:var(--sans); font-size:13px; font-weight:700; color:var(--ink-2);
+  background:none; border:none; border-left:4px solid transparent;
+  padding:7px 8px 7px 12px; cursor:pointer; text-align:left; line-height:1.45;
+}
+.toc-i1 > .toc-a1:hover{color:var(--ink)}
+.toc-i1[data-on="true"] > .toc-a1{color:var(--ink); border-left-color:var(--bar,var(--ink))}
+.toc-a1 .caret{
+  margin-left:auto; font-size:9px; color:var(--ink-3);
+  transition:transform .2s ease; transform:rotate(-90deg);
+}
+.toc-i1[data-open="true"] > .toc-a1 .caret{transform:none}
+@media (prefers-reduced-motion: reduce){ .toc-a1 .caret{transition:none} }
+
+/* 2단 — 기본은 접힘 */
+.toc-l2{list-style:none; margin:0 0 6px; padding:0 0 0 16px; display:none}
+.toc-i1[data-open="true"] > .toc-l2{display:block}
+
+.toc-a2{
+  display:flex; align-items:center; gap:6px; width:100%;
+  font-family:var(--sans); font-size:12.5px; font-weight:600; color:var(--ink-3);
+  background:none; border:none; border-left:2px solid var(--rule);
+  padding:5px 8px 5px 12px; cursor:pointer; text-align:left; line-height:1.4;
+}
+.toc-a2:hover{color:var(--ink)}
+.toc-i2[data-on="true"] > .toc-a2{color:var(--ink); border-left-color:var(--bar,var(--ink))}
+.toc-a2 .dcode{
+  font-family:var(--mono); font-size:10px; font-weight:600; color:#fff;
+  width:15px; height:15px; border-radius:3px; flex:none;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* 3단 — 24px 정사각 모노스페이스 코드 칩 */
+.toc-chips{
+  display:none; flex-wrap:wrap; gap:4px; padding:6px 0 8px 30px;
+}
+.toc-i2[data-open="true"] > .toc-chips{display:flex}
+.toc-chip{
+  width:24px; height:24px; flex:none; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:9.5px; font-weight:600; line-height:1;
+  color:var(--ink-2); background:var(--paper-2);
+  border:1px solid var(--rule); border-radius:4px; cursor:pointer;
+}
+.toc-chip:hover{background:var(--ink); color:#fff; border-color:var(--ink)}
+.toc-chip[data-on="true"]{background:var(--bar,var(--ink)); color:#fff; border-color:var(--bar,var(--ink))}
+/* 지식 코드는 1.1 처럼 세 글자라 조금 줄인다 */
+.toc-chip.wide{font-size:9px; letter-spacing:-.02em}
+
+/* 진행률 막대 */
+.toc-progress{
+  flex:none; margin-top:12px; padding:12px 12px 0; border-top:1px solid var(--rule);
+  display:flex; align-items:center; gap:10px;
+}
+.toc-progress .bar{
+  flex:1; height:3px; background:var(--rule); border-radius:2px; overflow:hidden;
+}
+.toc-progress .bar i{
+  display:block; height:100%; width:0; background:var(--ink);
+  border-radius:2px; transition:width .18s linear;
+}
+@media (prefers-reduced-motion: reduce){ .toc-progress .bar i{transition:none} }
+.toc-progress .pct{font-family:var(--mono); font-size:10px; color:var(--ink-3); min-width:30px; text-align:right}
+
+@media (max-width:1023px){
+  .toc{padding:16px 16px 0; max-height:calc(min(70vh,560px) - 60px)}
+  .toc-progress{margin:8px 16px 0; padding:12px 0 12px}
+}
