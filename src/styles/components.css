@@ -258,3 +258,26 @@ footer p{color:#B9C4D6; font-size:13.5px; line-height:1.7}
 footer a{color:#9FC0F5}
 .license{border:1px solid #2B3D5C; border-radius:8px; padding:20px 22px; margin-top:24px; background:#122443}
 .art-credit{border-top:1px solid #2B3D5C; margin-top:24px; padding-top:20px}
+
+/* ══════════════ 들어가며 ══════════════ */
+.credits{
+  background:var(--paper-2); border:1px solid var(--rule); border-radius:10px;
+  padding:28px 30px; margin:40px 0 0;
+}
+.credits h3{margin-top:0}
+.credits > p{font-size:14.5px}
+.credits h4{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; color:var(--ink-3);
+  font-weight:600; margin:24px 0 10px;
+}
+.people{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2px 20px;
+}
+.people li{
+  margin:0; padding:8px 0; border-bottom:1px solid var(--rule);
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px;
+}
+.people b{font-size:14.5px; font-weight:700; color:var(--ink)}
+.people span{font-size:12.5px; color:var(--ink-3)}
+.credits .outro{font-size:13.5px; color:var(--ink-3); margin:22px 0 0; line-height:1.7}

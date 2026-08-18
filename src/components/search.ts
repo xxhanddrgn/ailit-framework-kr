@@ -1,5 +1,5 @@
 import type { Content } from '../data/types'
-import { $, esc, goTo } from './util'
+import { $, esc, goTo, plain } from './util'
 import { compId } from './competence'
 import { glossaryId } from './glossary'
 
@@ -21,9 +21,10 @@ function buildIndex(c: Content): Entry[] {
 
   for (const g of c.knowledge) {
     for (const [code, text] of g.items) {
+      const t = plain(text)
       out.push({
-        kind: `지식 ${code}`, title: text.slice(0, 70), sub: g.t,
-        id: `k-${code}`, hay: (code + ' ' + g.t + ' ' + text).toLowerCase(), flash: true,
+        kind: `지식 ${code}`, title: t.slice(0, 70), sub: g.t,
+        id: `k-${code}`, hay: (code + ' ' + g.t + ' ' + t).toLowerCase(), flash: true,
       })
     }
   }

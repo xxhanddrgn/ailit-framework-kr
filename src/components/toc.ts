@@ -24,6 +24,7 @@ export function buildToc(c: Content): L1Node[] {
     g.items.map(([code]) => ({ label: code, id: `k-${code}`, wide: true })))
 
   return [
+    { key: 'front', id: 'front', label: '들어가며' },
     { key: 'intro', id: 'intro', label: '서론' },
     { key: 'foundations', id: 'foundations', label: '기초' },
     { key: 'process', id: 'process', label: '개발' },
@@ -151,6 +152,7 @@ export function initToc(content: Content): void {
      #ksa 는 #knowledge·#skills·#attitudes 를 품고 있어 넣지 않는다 — 넣으면
      기능·태도를 읽는 중에도 부모가 이겨서 2단 표시가 지식에 붙박인다. */
   const spy: [string, string, string | null][] = [
+    ['front', 'front', null],
     ['intro', 'intro', null],
     ['foundations', 'foundations', null],
     ['process', 'process', null],
@@ -275,8 +277,8 @@ export function initToc(content: Content): void {
   })
 
   // 초기 상태
-  syncOpen('intro')
-  markActive('intro', null, null)
+  syncOpen('front')
+  markActive('front', null, null)
   onScroll()
 
   if (prefersReducedMotion()) nav.classList.add('no-anim')

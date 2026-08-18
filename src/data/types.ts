@@ -67,7 +67,34 @@ export interface Domain {
 /** [한국어 표제어, 원어, 정의] */
 export type GlossaryEntry = [string, string, string]
 
+/** [이름, 소속] */
+export type Person = [string, string]
+
+export interface Welcome {
+  title: string
+  en: string
+  /** 문단마다 <em> 같은 인라인 마크업이 들어 있을 수 있다 — inline() 로 낸다. */
+  paras: string[]
+}
+
+export interface Credits {
+  title: string
+  en: string
+  intro: string
+  team_label: string
+  team: Person[]
+  experts_label: string
+  experts: Person[]
+  outro: string
+}
+
+export interface Front {
+  welcome: Welcome
+  credits: Credits
+}
+
 export interface Content {
+  front: Front
   knowledge: KnowledgeGroup[]
   skills: Skill[]
   attitudes: Attitude[]

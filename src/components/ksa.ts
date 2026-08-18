@@ -1,5 +1,5 @@
 import type { Content } from '../data/types'
-import { esc } from './util'
+import { esc, inline } from './util'
 
 /** 지식 진술문 — 코드(1.1 등)는 원문의 실제 참조 체계라 id 로 박아 둔다. */
 export function renderKnowledge(c: Content): string {
@@ -13,7 +13,7 @@ export function renderKnowledge(c: Content): string {
       ${g.items.map(([code, text]) => `
         <div class="k-item" id="k-${code}">
           <span class="code">${esc(code)}</span>
-          <p>${esc(text)}</p>
+          <p>${inline(text)}</p>
         </div>`).join('')}
     </div>`).join('')
 }

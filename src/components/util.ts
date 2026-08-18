@@ -13,6 +13,49 @@ export function esc(s: string): string {
     .replace(/"/g, '&quot;')
 }
 
+/**
+ * 번역 데이터 안에 들어 있는 인라인 마크업만 살려서 내보낸다.
+ *
+ * content.json 의 일부 문자열에는 편집 과정에서 들어온 표기가 섞여 있다.
+ * 지식 진술문의 인용은 `Russell &amp; Norvig` 처럼 엔티티로 적혀 있고,
+ * 들어가며의 문단에는 원제를 감싸는 <em> 이 들어 있다. 이것들을 esc() 로
+ * 그냥 밀어 버리면 화면에 `&amp;` 와 `<em>` 이 글자 그대로 나온다.
+ *
+ * 그렇다고 통째로 innerHTML 에 태우면, 나중에 데이터에 <script> 한 줄이
+ * 섞여 들어와도 그대로 실행된다. 그래서 허용 목록 방식으로 좁힌다.
+ * 아래 세 태그 외에는 전부 문자로 escape 되고, 유효한 엔티티만 통과한다.
+ */
+const ALLOWED = ['em', 'strong', 'br'] as const
+
+export function inline(s: string): string {
+  let out = s
+    // 엔티티로 볼 수 없는 & 만 escape 한다 (&amp; 가 &amp;amp; 로 겹치는 것을 막는다)
+    .replace(/&(?!#?\w+;)/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+
+  for (const tag of ALLOWED) {
+    out = out
+      .replace(new RegExp(`&lt;${tag}&gt;`, 'g'), `<${tag}>`)
+      .replace(new RegExp(`&lt;/${tag}&gt;`, 'g'), `</${tag}>`)
+      .replace(new RegExp(`&lt;${tag} /&gt;`, 'g'), `<${tag}>`)
+  }
+  return out
+}
+
+/** 검색 색인용 — 태그를 걷어내고 엔티티를 글자로 되돌린다. */
+export function plain(s: string): string {
+  return s
+    .replace(/<[^>]*>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&ndash;/g, '\u2013')
+    .replace(/&mdash;/g, '\u2014')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+}
+
 export const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 

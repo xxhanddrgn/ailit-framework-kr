@@ -14,6 +14,7 @@ import { expandFigures, initLightbox } from './components/figure'
 import { renderKnowledge, renderSkills, renderAttitudes } from './components/ksa'
 import { domainSectionsHtml, initCompetences } from './components/competence'
 import { renderGlossary, initGlossaryFilter } from './components/glossary'
+import { renderFront } from './components/front'
 import { initToc } from './components/toc'
 import { initSearch } from './components/search'
 import { initRail } from './components/rail'
@@ -69,6 +70,7 @@ const hero = `
 const doc = $('#doc')!
 doc.innerHTML = expandFigures(
   hero +
+  `<section id="front" class="wrap reveal">${renderFront(content)}</section>` +
   `<section id="intro" class="wrap reveal">${prose.intro}</section>` +
   `<section id="foundations" class="wrap reveal">${prose.foundations}</section>` +
   `<section id="process" class="wrap reveal">${prose.process}</section>` +

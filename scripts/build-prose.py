@@ -2,8 +2,7 @@
 """
 ailit-framework-kr.html 에서 산문·BOX·부록·푸터를 그대로 떼어 src/data/prose.ts 로 옮긴다.
 
-번역문은 한 글자도 고치지 않는다. 예외는 파일 하단 FOOTER_FIXES 한 건뿐이며,
-삽화를 싣지 않았다고 적힌 문장이 사실과 달라져 바로잡는 것이다.
+번역문은 한 글자도 고치지 않는다.
 
 삽화는 CREDITS.md 의 배치표대로 <!--FIG:이름--> 마커를 끼워 넣고,
 실제 <figure> 마크업은 렌더 시점에 src/components/figure.ts 가 만든다.
@@ -79,12 +78,6 @@ FIG_ANCHORS = [
     ('process', '<h3>기존 프레임워크 위에 세우기</h3>', 'before', 'fig4-disciplines'),
 ]
 
-# 원문과 어긋난 서술 한 문장 바로잡기 — 삽화를 실제로 수록하게 되었다
-FOOTER_FIXES = [
-    ('도표·삽화는 재현하지 않았으며 일부 도표 내용은 텍스트와 카드 형태로 옮겼습니다.',
-     '도판과 삽화는 원문에서 추출해 수록했으며, 일부 도표 내용은 텍스트와 카드 형태로도 옮겼습니다.'),
-]
-
 parts = {
     'intro': section('intro'),
     'foundations': section('foundations'),
@@ -110,11 +103,6 @@ for key, anchor, where, name in FIG_ANCHORS:
         anchor,
         (anchor + '\n' + marker) if where == 'after' else (marker + '\n' + anchor),
         1)
-
-for old, new in FOOTER_FIXES:
-    if parts['footer'].count(old) != 1:
-        sys.exit('푸터 수정 대상 문장을 찾지 못함: %s' % old[:40])
-    parts['footer'] = parts['footer'].replace(old, new, 1)
 
 
 def ts_literal(s: str) -> str:
