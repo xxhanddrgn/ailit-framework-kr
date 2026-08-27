@@ -241,7 +241,7 @@ export const footer = `<div class="wrap">
     <div class="license">
       <h4>번역 및 라이선스 고지</h4>
       <p>이 웹 문서는 위 원저작물의 비공식 한국어 번역이며, Creative Commons Attribution 4.0 International(CC BY 4.0) 라이선스에 따라 제작되었습니다.<br><br>
-      <strong>원문에 대한 변경 사항:</strong> 원문 전체를 한국어로 번역하였고, 인쇄 지면 레이아웃을 웹 문서 구조로 재편했습니다. 도판과 삽화는 원문에서 추출해 수록했습니다(삽화 Abiyasa Adiguna · © OECD / European Union, 2026 · CC BY 4.0). 참고문헌 목록(원문 pp.44&ndash;50)은 수록하지 않았으므로 원문을 참조하십시오. 참고문헌 목록(원문 pp.44–50)은 지면 관계상 수록하지 않았으므로 원문을 참조하십시오.<br><br>
+      <strong>원문에 대한 변경 사항:</strong> 원문 전체를 한국어로 번역하였고, 인쇄 지면 레이아웃을 웹 문서 구조로 재편했습니다. 도판과 삽화는 원문에서 추출해 수록했습니다(삽화 Abiyasa Adiguna · © OECD / European Union, 2026 · CC BY 4.0). 참고문헌 목록(원문 pp.44&ndash;50)은 수록하지 않았으므로 원문을 참조하십시오.<br><br>
       <em>원저작물과 번역본 사이에 불일치가 있는 경우, 원저작물의 텍스트만이 유효한 것으로 간주됩니다. (In the event of any discrepancy between the original work and the translation, only the text of the original work should be considered valid.)</em><br><br>
       OECD 또는 유럽집행위원회의 로고·비주얼 아이덴티티·표지 이미지는 사용되지 않았으며, 이 번역본은 OECD 또는 유럽집행위원회의 보증을 시사하지 않습니다.</p>
     </div>
