@@ -3,7 +3,12 @@ import { $, $$, esc, goTo, prefersReducedMotion } from './util'
 import { compId } from './competence'
 import { domainColor } from '../data/theme'
 
-interface Chip { label: string; id: string; wide?: boolean }
+/**
+ * 3단 코드 칩.
+ * 지식(1.1)·역량(E1)은 원문의 참조 체계라 24px 정사각으로 둔다.
+ * 기능·태도에는 그런 번호가 없어 이름을 그대로 쓰고, 칩 폭만 글자에 맞춘다.
+ */
+interface Chip { label: string; id: string; cls?: 'wide' | 'name' }
 interface L2Node { key: string; id: string; label: string; code?: string; color?: string; chips?: Chip[] }
 interface L1Node {
   key: string
@@ -21,7 +26,15 @@ const TOPBAR = 56
 
 export function buildToc(c: Content): L1Node[] {
   const knowledgeChips: Chip[] = c.knowledge.flatMap((g) =>
-    g.items.map(([code]) => ({ label: code, id: `k-${code}`, wide: true })))
+    g.items.map(([code]) => ({ label: code, id: `k-${code}`, cls: 'wide' as const })))
+
+  // 기능·태도는 원문에 번호가 없다. S1·A1 같은 코드를 새로 만들면 없는 참조
+  // 체계를 지어내는 셈이고, S 는 이미 AI 만들어가기가 쓰고 있다. 이름을 쓴다.
+  const skillChips: Chip[] = c.skills.map((sk, i) =>
+    ({ label: sk.t, id: `skill-${i}`, cls: 'name' as const }))
+
+  const attitudeChips: Chip[] = c.attitudes.map((a, i) =>
+    ({ label: a.t, id: `attitude-${i}`, cls: 'name' as const }))
 
   return [
     { key: 'front', id: 'front', label: '들어가며' },
@@ -32,8 +45,8 @@ export function buildToc(c: Content): L1Node[] {
       key: 'ksa', id: 'ksa', label: '지식·기능·태도', always: true,
       children: [
         { key: 'knowledge', id: 'knowledge', label: '지식', chips: knowledgeChips },
-        { key: 'skills', id: 'skills', label: '기능' },
-        { key: 'attitudes', id: 'attitudes', label: '태도' },
+        { key: 'skills', id: 'skills', label: '기능', chips: skillChips },
+        { key: 'attitudes', id: 'attitudes', label: '태도', chips: attitudeChips },
       ],
     },
     {
@@ -74,7 +87,7 @@ export function initToc(content: Content): void {
         ? `<ul class="toc-l2">` + n.children!.map((s) => {
             const chips = s.chips?.length
               ? `<div class="toc-chips">` + s.chips.map((ch) =>
-                  `<button type="button" class="toc-chip${ch.wide ? ' wide' : ''}" data-jump="${esc(ch.id)}">${esc(ch.label)}</button>`
+                  `<button type="button" class="toc-chip${ch.cls ? ' ' + ch.cls : ''}" data-jump="${esc(ch.id)}">${esc(ch.label)}</button>`
                 ).join('') + `</div>`
               : ''
             const badge = s.code
