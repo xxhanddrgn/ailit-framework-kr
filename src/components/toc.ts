@@ -114,6 +114,15 @@ export function initToc(content: Content): void {
 
   const l1Items = $$('.toc-i1', nav)
 
+  // 목차는 데이터에서 만들어진다. 가리키는 절이 실제로 없으면 클릭해도 아무 일이
+  // 일어나지 않고 조용히 끝난다. 그런 항목은 눈에 띄게 알린다.
+  for (const btn of $$('[data-jump]', nav)) {
+    const id = btn.dataset.jump!
+    if (!document.getElementById(id)) {
+      console.warn('[toc] 갈 곳이 없는 항목:', id, '—', btn.textContent?.trim())
+    }
+  }
+
   // ---------------------------------------------------------------- 펼침 제어
   let manualUntil = 0
   const paused = () => Date.now() < manualUntil
@@ -167,7 +176,7 @@ export function initToc(content: Content): void {
     ['knowledge', 'ksa', 'knowledge'],
     ['skills', 'ksa', 'skills'],
     ['attitudes', 'ksa', 'attitudes'],
-    ['competences-intro', 'competences', null],
+    ['competences', 'competences', null],
     ...content.domains.map((d) => [d.id, 'competences', d.id] as [string, string, string]),
     ['glossary', 'glossary', null],
     ['annex', 'annex', null],

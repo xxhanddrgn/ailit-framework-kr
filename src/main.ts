@@ -75,7 +75,7 @@ doc.innerHTML = expandFigures(
   `<section id="foundations" class="wrap reveal">${prose.foundations}</section>` +
   `<section id="process" class="wrap reveal">${prose.process}</section>` +
   `<section id="ksa" class="wrap reveal">${prose.ksa}</section>` +
-  `<section id="competences-intro" class="wrap reveal">${prose.competencesIntro}</section>` +
+  `<section id="competences" class="wrap reveal">${prose.competencesIntro}</section>` +
   domainSectionsHtml(content) +
   `<section id="glossary" class="wrap reveal">
      <div class="narrow">
