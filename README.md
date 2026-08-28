@@ -22,6 +22,7 @@ npm run preview  # 빌드 결과 확인
 ```
 
 `npm run build`는 `tsc --noEmit`을 먼저 돌리므로 타입 오류가 있으면 빌드가 멈춥니다.
+빌드 직전 `scripts/build-asset-manifest.mjs`가 자동으로 돌아 삽화 목록을 다시 만듭니다.
 
 ---
 
@@ -44,6 +45,7 @@ src/
   data/
     content.json          번역 데이터 (들어가며·지식·기능·태도·역량·용어집)
     prose.ts              자동 생성 — 아래 "산문 다시 뽑기" 참조
+    assets.ts             자동 생성 — 삽화 크기와 내용 해시
     figures.ts            삽화 배치·캡션·영한 대응표·원본 크기
     theme.ts              UI 크롬에 쓰는 영역색
     types.ts
@@ -51,7 +53,8 @@ src/
   components/             topbar·rail·toc·front·ksa·competence·glossary
                           ·search·figure·footer
 
-scripts/build-prose.py    ailit-framework-kr.html → src/data/prose.ts
+scripts/build-prose.py           ailit-framework-kr.html → src/data/prose.ts
+scripts/build-asset-manifest.mjs public/assets → src/data/assets.ts (빌드 시 자동)
 ailit-framework-kr.html   산문·BOX·부록·푸터의 원본
 ```
 
@@ -68,6 +71,18 @@ python3 scripts/build-prose.py
 삽화는 `assets/CREDITS.md`의 배치표대로 `<!--FIG:이름-->` 마커로 심습니다.
 앵커 문자열이 안 걸리거나 두 번 걸리면 스크립트가 즉시 멈춥니다. 삽화가 조용히
 빠진 채로 빌드되는 것보다 낫다는 판단입니다.
+
+### 삽화를 갈 때
+
+`public/assets/`의 파일을 바꾸고 빌드하면 끝입니다. `assets.ts`가 다시 만들어지면서
+크기와 내용 해시가 갱신되고, 그림 주소에 `?v=<해시>`가 붙습니다.
+
+**해시를 붙이는 이유**: 삽화는 파일명이 고정이라(`fig1-domains.png` 등) 해시가 없으면
+파일을 갈아도 브라우저가 캐시된 옛 그림을 계속 씁니다. 배포 설정이 PNG를 7일 캐시하므로
+그동안 갱신이 보이지 않습니다.
+
+도판을 갈면 표제부 꽃잎 이동 단추의 좌표(`src/main.ts`의 `DOMAIN_SPOTS`)도 다시 재야
+합니다. 도판 화소에서 직접 잰 값입니다.
 
 ### 번역 데이터를 고칠 때
 

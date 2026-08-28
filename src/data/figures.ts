@@ -129,35 +129,3 @@ export const DOMAIN_ART: Record<string, { opener: string; badge: string }> = {
   shape: { opener: 'domain-shape-opener.png', badge: 'badge-shape.png' },
 }
 
-/** 파일별 원본 크기. width/height 속성으로 자리를 미리 잡아 두어야
- *  lazy 로딩된 삽화가 나중에 들어오면서 본문을 밀어내지 않는다. */
-export const DIMS: Record<string, [number, number]> = {
-  'aud-designers.png': [324, 293],
-  'aud-families.png': [306, 328],
-  'aud-leaders.png': [287, 328],
-  'aud-policymakers.png': [287, 293],
-  'aud-teachers.png': [287, 272],
-  'badge-create.png': [708, 634],
-  'badge-engage.png': [709, 631],
-  'badge-manage.png': [704, 630],
-  'badge-shape.png': [707, 639],
-  'card-create.png': [370, 354],
-  'card-engage.png': [369, 348],
-  'card-manage.png': [368, 361],
-  'card-shape.png': [390, 364],
-  'domain-create-opener.png': [1328, 1400],
-  'domain-engage-opener.png': [1240, 1400],
-  'domain-manage-opener.png': [1263, 1400],
-  'domain-shape-opener.png': [1400, 1394],
-  'fig1-domains.png': [1107, 1080],
-  'fig2-shared-effort.png': [1400, 698],
-  'fig3-respondents.png': [1400, 1031],
-  'fig4-disciplines.png': [1400, 842],
-  'fig5-domains.png': [1364, 1400],
-  'illus-classroom.png': [693, 534],
-  'illus-ethics.png': [1400, 919],
-  'illus-opportunities-risks.png': [332, 262],
-  'illus-teachers.png': [1096, 1901],
-}
-
-export const ASSET_BASE = '/assets/'

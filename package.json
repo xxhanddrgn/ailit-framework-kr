@@ -5,7 +5,9 @@
   "type": "module",
   "description": "AI 시대의 학습자 역량강화 — AILit 프레임워크 한국어판",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run assets && vite",
+    "assets": "node scripts/build-asset-manifest.mjs",
+    "prebuild": "npm run assets",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview"
   },

@@ -1,4 +1,5 @@
-import { FIGURES, ASSET_BASE, DIMS, type Figure } from '../data/figures'
+import { FIGURES, type Figure } from '../data/figures'
+import { assetUrl, sizeAttrs } from './asset'
 import { $, esc } from './util'
 
 /** <!--FIG:이름--> 마커를 실제 마크업으로 바꾼다. */
@@ -13,14 +14,8 @@ export function expandFigures(html: string): string {
   })
 }
 
-/** 자리를 미리 잡아 두는 크기 속성. CSS 가 width:100% 로 다시 늘린다. */
-export function sizeAttrs(file: string): string {
-  const d = DIMS[file]
-  return d ? ` width="${d[0]}" height="${d[1]}"` : ''
-}
-
 function render(name: string, fig: Figure): string {
-  const src = ASSET_BASE + fig.file
+  const src = assetUrl(fig.file)
   const size = sizeAttrs(fig.file)
 
   // 배지·썸네일·아이콘 — 시각 정보가 아니라 장식이다
@@ -64,7 +59,7 @@ export function initLightbox(): void {
     const fig = FIGURES[name]
     if (!fig) return
     lastFocus = document.activeElement as HTMLElement
-    img.src = ASSET_BASE + fig.file
+    img.src = assetUrl(fig.file)
     img.alt = fig.alt ?? ''
     cap.textContent = fig.caption ?? ''
     box.hidden = false

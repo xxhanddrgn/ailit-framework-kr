@@ -1,6 +1,6 @@
 import type { Content, Domain, Competence } from '../data/types'
-import { DOMAIN_ART, ASSET_BASE } from '../data/figures'
-import { sizeAttrs } from './figure'
+import { DOMAIN_ART } from '../data/figures'
+import { assetUrl, sizeAttrs } from './asset'
 import { esc, goTo, $$ } from './util'
 import { domainColor } from '../data/theme'
 
@@ -19,13 +19,13 @@ export function renderDomain(d: Domain): string {
         <p class="tagline">${esc(d.tag)}</p>
         <p>${esc(d.intro)}</p>
       </div>
-      <img src="${ASSET_BASE}${art.opener}"${sizeAttrs(art.opener)} alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="${assetUrl(art.opener)}"${sizeAttrs(art.opener)} alt="" aria-hidden="true" loading="lazy" decoding="async">
     </div>
 
     <blockquote class="domain-quote">${esc(d.quote[0])}<cite>${esc(d.quote[1])}</cite></blockquote>
 
     <div class="comp-list-hd">
-      <img src="${ASSET_BASE}${art.badge}"${sizeAttrs(art.badge)} alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="${assetUrl(art.badge)}"${sizeAttrs(art.badge)} alt="" aria-hidden="true" loading="lazy" decoding="async">
       <span>${esc(d.code)}1 – ${esc(d.code)}${d.comps.length} · 역량 ${d.comps.length}개</span>
     </div>
 

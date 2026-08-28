@@ -10,6 +10,7 @@ import type { Content } from './data/types'
 import * as prose from './data/prose'
 
 import { $, $$, goTo, prefersReducedMotion } from './components/util'
+import { assetUrl, sizeAttrs } from './components/asset'
 import { expandFigures, initLightbox } from './components/figure'
 import { renderKnowledge, renderSkills, renderAttitudes } from './components/ksa'
 import { domainSectionsHtml, initCompetences } from './components/competence'
@@ -51,7 +52,7 @@ const hero = `
     <div>
       <figure class="hero-fig">
         <div class="hero-fig-img">
-          <img src="/assets/fig1-domains.png" width="1107" height="1080"
+          <img src="${assetUrl('fig1-domains.png')}"${sizeAttrs('fig1-domains.png')}
                alt="AILit 프레임워크의 네 영역을 꽃잎처럼 배치한 도판. 위에서부터 시계 방향으로 AI 만들어가기, AI 관리하기, AI와 마주하기, AI와 창작하기."
                decoding="async" fetchpriority="high">
           ${DOMAIN_SPOTS.map((d) => `
