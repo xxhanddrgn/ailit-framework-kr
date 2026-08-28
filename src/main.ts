@@ -23,6 +23,16 @@ import { renderFooter } from './components/footer'
 const content = raw as unknown as Content
 
 // ---------------------------------------------------------------- 표제부
+/** 도판 위 각 꽃잎의 무게중심(이미지 비율)과 한국어 이름.
+ *  fig1-domains.png 의 화소를 직접 재서 얻은 값이라 도판을 갈면 다시 재야 한다. */
+const DOMAIN_SPOTS = [
+  // 순서는 프레임워크의 학습 경로대로 E → C → M → S. 좌측 영역 칩·목차와 같다.
+  { id: 'engage', ko: 'AI와 마주하기', en: 'Engage with AI', color: '#12428E', x: 50.5, y: 74.9 },
+  { id: 'create', ko: 'AI와 창작하기', en: 'Create with AI', color: '#6E9410', x: 21.5, y: 51.1 },
+  { id: 'manage', ko: 'AI 관리하기',   en: 'Manage AI',      color: '#D8431F', x: 76.7, y: 50.4 },
+  { id: 'shape',  ko: 'AI 만들어가기', en: 'Shape AI',       color: '#5C74B8', x: 50.2, y: 20.6 },
+] as const
+
 const hero = `
 <header class="hero wrap reveal">
   <div class="hero-grid">
@@ -39,29 +49,25 @@ const hero = `
       </dl>
     </div>
     <div>
-      <svg class="petals" viewBox="0 0 420 420" role="img" aria-label="AILit 프레임워크의 네 영역 탐색기">
-        <g class="petal" data-go="shape" role="button" tabindex="0" aria-label="AI 만들어가기 영역으로 이동">
-          <path d="M210,215 C150,160 148,80 210,52 C272,80 270,160 210,215 Z" fill="#5C74B8"/>
-          <text class="petal-lab" x="210" y="120" text-anchor="middle">AI 만들어가기</text>
-          <text class="petal-en" x="210" y="138" text-anchor="middle">SHAPE AI</text>
-        </g>
-        <g class="petal" data-go="create" role="button" tabindex="0" aria-label="AI와 창작하기 영역으로 이동">
-          <path d="M205,210 C150,150 70,148 42,210 C70,272 150,270 205,210 Z" fill="#8FBF2B"/>
-          <text class="petal-lab" x="115" y="207" text-anchor="middle">AI와 창작하기</text>
-          <text class="petal-en" x="115" y="224" text-anchor="middle">CREATE WITH AI</text>
-        </g>
-        <g class="petal" data-go="manage" role="button" tabindex="0" aria-label="AI 관리하기 영역으로 이동">
-          <path d="M215,210 C270,150 350,148 378,210 C350,272 270,270 215,210 Z" fill="#D8431F"/>
-          <text class="petal-lab" x="305" y="207" text-anchor="middle">AI 관리하기</text>
-          <text class="petal-en" x="305" y="224" text-anchor="middle">MANAGE AI</text>
-        </g>
-        <g class="petal" data-go="engage" role="button" tabindex="0" aria-label="AI와 마주하기 영역으로 이동">
-          <path d="M210,205 C150,260 148,340 210,368 C272,340 270,260 210,205 Z" fill="#12428E"/>
-          <text class="petal-lab" x="210" y="300" text-anchor="middle">AI와 마주하기</text>
-          <text class="petal-en" x="210" y="318" text-anchor="middle">ENGAGE WITH AI</text>
-        </g>
-      </svg>
-      <p style="text-align:center; font-family:var(--mono); font-size:11px; color:var(--ink-3); margin-top:10px">영역을 눌러 해당 절로 이동</p>
+      <figure class="hero-fig">
+        <div class="hero-fig-img">
+          <img src="/assets/fig1-domains.png" width="1220" height="1204"
+               alt="AILit 프레임워크의 네 영역을 꽃잎처럼 배치한 도판. 위에서부터 시계 방향으로 AI 만들어가기, AI 관리하기, AI와 마주하기, AI와 창작하기."
+               decoding="async" fetchpriority="high">
+          ${DOMAIN_SPOTS.map((d) => `
+            <button type="button" class="hero-spot" data-go="${d.id}"
+                    style="left:${d.x}%; top:${d.y}%"
+                    aria-label="${d.ko} 영역으로 이동"><span></span></button>`).join('')}
+        </div>
+        <figcaption>
+          <p class="hero-fig-hint">영역을 눌러 해당 절로 이동</p>
+          <ul class="hero-legend">
+            ${DOMAIN_SPOTS.map((d) => `
+              <li><button type="button" data-go="${d.id}" style="--c:${d.color}">
+                <b>${d.ko}</b><span>${d.en}</span></button></li>`).join('')}
+          </ul>
+        </figcaption>
+      </figure>
     </div>
   </div>
 </header>`
@@ -104,15 +110,11 @@ initRail(content)
 initToc(content)
 initSearch(content)
 
-// 표제부 꽃잎 탐색기
+
+// 표제부 도판과 범례에서 영역으로 이동
 doc.addEventListener('click', (e) => {
-  const g = (e.target as HTMLElement).closest<SVGGElement>('.petal[data-go]')
-  if (g) goTo(g.dataset.go!)
-})
-doc.addEventListener('keydown', (e) => {
-  if (e.key !== 'Enter' && e.key !== ' ') return
-  const g = (e.target as HTMLElement).closest<SVGGElement>('.petal[data-go]')
-  if (g) { goTo(g.dataset.go!); e.preventDefault() }
+  const btn = (e.target as HTMLElement).closest<HTMLElement>('.hero-fig [data-go]')
+  if (btn) goTo(btn.dataset.go!)
 })
 
 // 스크롤 진입 효과 — prefers-reduced-motion 이면 그냥 다 보여 준다

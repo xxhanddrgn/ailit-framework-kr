@@ -149,7 +149,7 @@ export const DIMS: Record<string, [number, number]> = {
   'domain-engage-opener.png': [1240, 1400],
   'domain-manage-opener.png': [1263, 1400],
   'domain-shape-opener.png': [1400, 1394],
-  'fig1-domains.png': [1159, 1146],
+  'fig1-domains.png': [1220, 1204],
   'fig2-shared-effort.png': [1400, 698],
   'fig3-respondents.png': [1400, 1031],
   'fig4-disciplines.png': [1400, 842],

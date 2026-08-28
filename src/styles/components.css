@@ -21,6 +21,45 @@
 .petal-en{font-family:var(--mono); font-size:9px; fill:#fff; opacity:.72; pointer-events:none}
 @media (prefers-reduced-motion: reduce){.petal{transition:none}}
 
+/* 표제부 도판 — 원문 그림 1 을 그대로 쓰고 꽃잎 위에 이동 단추를 얹는다 */
+.hero-fig{margin:0}
+.hero-fig-img{position:relative; max-width:420px; margin:0 auto}
+.hero-fig-img img{width:100%; height:auto; display:block}
+
+/* 꽃잎 중심에 놓이는 투명 단추. 위치 값은 도판에서 잰 무게중심이다. */
+.hero-spot{
+  position:absolute; transform:translate(-50%,-50%);
+  width:27%; height:27%; padding:0; border:none; background:none;
+  border-radius:50%; cursor:pointer;
+}
+.hero-spot span{
+  display:block; width:100%; height:100%; border-radius:50%;
+  background:#fff; opacity:0; transition:opacity .2s ease;
+}
+.hero-spot:hover span{opacity:.22}
+.hero-spot:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){ .hero-spot span{transition:none} }
+
+.hero-fig-hint{
+  text-align:center; font-family:var(--mono); font-size:11px;
+  color:var(--ink-3); margin:12px 0 0;
+}
+
+/* 도판 라벨이 영문뿐이라 한국어 이름을 함께 둔다 */
+.hero-legend{
+  list-style:none; margin:14px 0 0; padding:0;
+  display:grid; grid-template-columns:1fr 1fr; gap:6px;
+}
+.hero-legend button{
+  display:block; width:100%; text-align:left; cursor:pointer;
+  background:var(--paper-2); border:1px solid var(--rule);
+  border-left:4px solid var(--c); border-radius:0 7px 7px 0; padding:7px 10px;
+  font-family:var(--sans);
+}
+.hero-legend button:hover{border-color:var(--c)}
+.hero-legend b{display:block; font-size:13px; font-weight:700; color:var(--ink); line-height:1.35}
+.hero-legend span{display:block; font-family:var(--mono); font-size:9.5px; color:var(--ink-3); margin-top:1px}
+
 /* ══════════════ BOX ══════════════ */
 .callout{
   background:var(--paper-2); border:1px solid var(--rule); border-left:5px solid var(--engage);
