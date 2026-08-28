@@ -5,7 +5,7 @@
 }
 .hero .sub{font-size:clamp(16px,2vw,19px); color:var(--ink-2); font-weight:500; max-width:640px; margin:0 0 8px}
 .hero .en{font-family:var(--mono); font-size:12.5px; color:var(--ink-3); max-width:640px}
-.hero-grid{display:grid; grid-template-columns:1fr 400px; gap:48px; align-items:center}
+.hero-grid{display:grid; grid-template-columns:1fr 320px; gap:48px; align-items:center}
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr; gap:36px}}
 
 .meta-row{display:flex; flex-wrap:wrap; gap:0; margin-top:36px; border-top:1px solid var(--rule)}
@@ -23,7 +23,7 @@
 
 /* 표제부 도판 — 원문 그림 1 을 그대로 쓰고 꽃잎 위에 이동 단추를 얹는다 */
 .hero-fig{margin:0}
-.hero-fig-img{position:relative; max-width:420px; margin:0 auto}
+.hero-fig-img{position:relative; max-width:280px; margin:0 auto}
 .hero-fig-img img{width:100%; height:auto; display:block}
 
 /* 꽃잎 중심에 놓이는 투명 단추. 위치 값은 도판에서 잰 무게중심이다. */
@@ -47,18 +47,18 @@
 
 /* 도판 라벨이 영문뿐이라 한국어 이름을 함께 둔다 */
 .hero-legend{
-  list-style:none; margin:14px 0 0; padding:0;
-  display:grid; grid-template-columns:1fr 1fr; gap:6px;
+  list-style:none; margin:14px auto 0; padding:0; max-width:280px;
+  display:grid; grid-template-columns:1fr 1fr; gap:5px;
 }
 .hero-legend button{
   display:block; width:100%; text-align:left; cursor:pointer;
   background:var(--paper-2); border:1px solid var(--rule);
-  border-left:4px solid var(--c); border-radius:0 7px 7px 0; padding:7px 10px;
+  border-left:4px solid var(--c); border-radius:0 7px 7px 0; padding:6px 8px;
   font-family:var(--sans);
 }
 .hero-legend button:hover{border-color:var(--c)}
-.hero-legend b{display:block; font-size:13px; font-weight:700; color:var(--ink); line-height:1.35}
-.hero-legend span{display:block; font-family:var(--mono); font-size:9.5px; color:var(--ink-3); margin-top:1px}
+.hero-legend b{display:block; font-size:12px; font-weight:700; color:var(--ink); line-height:1.35}
+.hero-legend span{display:block; font-family:var(--mono); font-size:9px; color:var(--ink-3); margin-top:1px}
 
 /* ══════════════ BOX ══════════════ */
 .callout{
