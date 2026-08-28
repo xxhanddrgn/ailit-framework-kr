@@ -27,10 +27,10 @@ const content = raw as unknown as Content
  *  fig1-domains.png 의 화소를 직접 재서 얻은 값이라 도판을 갈면 다시 재야 한다. */
 const DOMAIN_SPOTS = [
   // 순서는 프레임워크의 학습 경로대로 E → C → M → S. 좌측 영역 칩·목차와 같다.
-  { id: 'engage', ko: 'AI와 마주하기', en: 'Engage with AI', color: '#12428E', x: 50.5, y: 74.9 },
-  { id: 'create', ko: 'AI와 창작하기', en: 'Create with AI', color: '#6E9410', x: 21.5, y: 51.1 },
-  { id: 'manage', ko: 'AI 관리하기',   en: 'Manage AI',      color: '#D8431F', x: 76.7, y: 50.4 },
-  { id: 'shape',  ko: 'AI 만들어가기', en: 'Shape AI',       color: '#5C74B8', x: 50.2, y: 20.6 },
+  { id: 'engage', ko: 'AI와 마주하기', en: 'Engage with AI', color: '#12428E', x: 50.5, y: 74.6 },
+  { id: 'create', ko: 'AI와 창작하기', en: 'Create with AI', color: '#6E9410', x: 22.4, y: 51.2 },
+  { id: 'manage', ko: 'AI 관리하기',   en: 'Manage AI',      color: '#D8431F', x: 75.9, y: 50.6 },
+  { id: 'shape',  ko: 'AI 만들어가기', en: 'Shape AI',       color: '#5C74B8', x: 50.1, y: 21.4 },
 ] as const
 
 const hero = `
@@ -51,7 +51,7 @@ const hero = `
     <div>
       <figure class="hero-fig">
         <div class="hero-fig-img">
-          <img src="/assets/fig1-domains.png" width="1220" height="1204"
+          <img src="/assets/fig1-domains.png" width="1107" height="1080"
                alt="AILit 프레임워크의 네 영역을 꽃잎처럼 배치한 도판. 위에서부터 시계 방향으로 AI 만들어가기, AI 관리하기, AI와 마주하기, AI와 창작하기."
                decoding="async" fetchpriority="high">
           ${DOMAIN_SPOTS.map((d) => `
