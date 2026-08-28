@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img"
+     aria-label="AILit 프레임워크의 네 영역">
+  <title>AILit 프레임워크 한국어판</title>
+  <!-- 어두운 탭 배경에서도 남색 꽃잎이 묻히지 않도록 바탕을 깐다 -->
+  <rect width="64" height="64" rx="13" fill="#F3F5FA"/>
+  <!-- 표제부 꽃잎 탐색기와 같은 배치.
+       위 AI 만들어가기 · 오른쪽 AI 관리하기 · 아래 AI와 마주하기 · 왼쪽 AI와 창작하기
+
+       꽃잎 밑동을 가운데에서 2 만큼 물려 두었다. 밑동을 중심에 붙이면 네 장이
+       서로를 덮어 초승달 모양 그늘이 생기고 16px 에서 한쪽으로 쏠려 보인다. -->
+  <path d="M32,30 C18,25 16,10 32,3 C48,10 46,25 32,30 Z" fill="#5C74B8"/>
+  <path d="M32,30 C18,25 16,10 32,3 C48,10 46,25 32,30 Z" fill="#D8431F" transform="rotate(90 32 32)"/>
+  <path d="M32,30 C18,25 16,10 32,3 C48,10 46,25 32,30 Z" fill="#12428E" transform="rotate(180 32 32)"/>
+  <path d="M32,30 C18,25 16,10 32,3 C48,10 46,25 32,30 Z" fill="#8FBF2B" transform="rotate(270 32 32)"/>
+</svg>

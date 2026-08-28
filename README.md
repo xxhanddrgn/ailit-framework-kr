@@ -31,9 +31,13 @@ npm run preview  # 빌드 결과 확인
 index.html                진입점 — 상단바·좌측·본문·우측 목차의 3단 셸
 vite.config.ts            base:'/' · assetsInlineLimit:0
 
-public/assets/            삽화 26장 + CREDITS.md
+public/
+  assets/                 삽화 26장 + CREDITS.md
                           Vite가 dist/ 로 그대로 복사한다. 여기 두지 않으면
                           빌드에 포함되지 않아 배포 후 404가 난다.
+  favicon.svg             네 영역 꽃잎 마크 — 원본
+  favicon.ico             16·32·48·64 다중 해상도
+  apple-touch-icon.png    180×180
 
 src/
   main.ts                 데이터 로드 → 렌더 → 옵저버 배선
