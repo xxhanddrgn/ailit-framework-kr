@@ -14,8 +14,6 @@ interface L1Node {
   key: string
   id: string
   label: string
-  /** 프레임워크의 뼈대라 자동 접힘 대상이 아니다 — 언제나 펼쳐 둔다. */
-  always?: boolean
   children?: L2Node[]
 }
 
@@ -42,7 +40,7 @@ export function buildToc(c: Content): L1Node[] {
     { key: 'foundations', id: 'foundations', label: '기초' },
     { key: 'process', id: 'process', label: '개발' },
     {
-      key: 'ksa', id: 'ksa', label: '지식·기능·태도', always: true,
+      key: 'ksa', id: 'ksa', label: '지식·기능·태도',
       children: [
         { key: 'knowledge', id: 'knowledge', label: '지식', chips: knowledgeChips },
         { key: 'skills', id: 'skills', label: '기능', chips: skillChips },
@@ -82,7 +80,6 @@ export function initToc(content: Content): void {
     `<ul class="toc-l1">` +
     tree.map((n) => {
       const hasKids = !!n.children?.length
-      const open = !!n.always
       const kids = hasKids
         ? `<ul class="toc-l2">` + n.children!.map((s) => {
             const chips = s.chips?.length
@@ -101,11 +98,11 @@ export function initToc(content: Content): void {
               chips + `</li>`
           }).join('') + `</ul>`
         : ''
-      return `<li class="toc-i1" data-key="${esc(n.key)}" data-open="${open}" data-on="false">` +
+      return `<li class="toc-i1" data-key="${esc(n.key)}" data-open="false" data-on="false">` +
         `<button type="button" class="toc-a1" data-sec="${esc(n.key)}" data-jump="${esc(n.id)}"` +
-        (hasKids ? ` aria-expanded="${open}"` : '') + `>` +
+        (hasKids ? ` aria-expanded="false"` : '') + `>` +
         `<span>${esc(n.label)}</span>` +
-        (hasKids && !n.always ? `<span class="caret" aria-hidden="true">▾</span>` : '') +
+        (hasKids ? `<span class="caret" aria-hidden="true">▾</span>` : '') +
         `</button>` + kids + `</li>`
     }).join('') +
     `</ul>`
@@ -116,26 +113,22 @@ export function initToc(content: Content): void {
   wrap.appendChild(bar)
 
   const l1Items = $$('.toc-i1', nav)
-  const alwaysOpen = new Set(tree.filter((n) => n.always).map((n) => n.key))
 
   // ---------------------------------------------------------------- 펼침 제어
   let manualUntil = 0
   const paused = () => Date.now() < manualUntil
 
   function setOpen(key: string, open: boolean): void {
-    // 지식·기능·태도는 어떤 경우에도 접지 않는다.
-    if (alwaysOpen.has(key)) open = true
     const li = l1Items.find((x) => x.dataset.key === key)
     if (!li) return
     li.dataset.open = String(open)
     li.querySelector('.toc-a1')?.setAttribute('aria-expanded', String(open))
   }
 
-  /** 현재 절만 펼치고 나머지는 접는다. 상시 노출 항목은 건드리지 않는다. */
+  /** 현재 절만 펼치고 나머지는 접는다. */
   function syncOpen(activeKey: string): void {
     for (const li of l1Items) {
       const key = li.dataset.key!
-      if (alwaysOpen.has(key)) { setOpen(key, true); continue }
       setOpen(key, key === activeKey)
     }
   }
@@ -160,15 +153,17 @@ export function initToc(content: Content): void {
   }
 
   // ---------------------------------------------------------------- 스크롤 스파이
-  /* 감시 대상: [요소 id, 1단 키, 2단 키]
-     문서 순서대로 늘어놓고, 서로 겹치지 않는 것만 넣는다.
-     #ksa 는 #knowledge·#skills·#attitudes 를 품고 있어 넣지 않는다 — 넣으면
-     기능·태도를 읽는 중에도 부모가 이겨서 2단 표시가 지식에 붙박인다. */
+  /* 감시 대상: [요소 id, 1단 키, 2단 키] — 문서 순서대로.
+     #ksa 는 #knowledge·#skills·#attitudes 를 품고 있지만, 아래 pick() 이
+     기준선을 넘어선 것 중 '마지막' 을 고르므로 자식이 자연히 이긴다.
+     #ksa 를 넣어 두어야 목차에서 '지식·기능·태도' 를 눌러 절 머리로 갔을 때
+     앞 절이 계속 활성으로 남지 않는다. */
   const spy: [string, string, string | null][] = [
     ['front', 'front', null],
     ['intro', 'intro', null],
     ['foundations', 'foundations', null],
     ['process', 'process', null],
+    ['ksa', 'ksa', null],
     ['knowledge', 'ksa', 'knowledge'],
     ['skills', 'ksa', 'skills'],
     ['attitudes', 'ksa', 'attitudes'],
@@ -265,7 +260,7 @@ export function initToc(content: Content): void {
     const li = a1.closest<HTMLElement>('.toc-i1')!
     const key = li.dataset.key!
 
-    if (a1.hasAttribute('aria-expanded') && !alwaysOpen.has(key)) {
+    if (a1.hasAttribute('aria-expanded')) {
       const open = li.dataset.open !== 'true'
       setOpen(key, open)
       manualUntil = Date.now() + MANUAL_PAUSE_MS
